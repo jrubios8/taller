@@ -25,7 +25,7 @@ int buscar(struct Garaje taller[], char matricula[]) {
 	do {
 		if (strcasecmp((matricula), taller[i].matricula) == 0)
 			return i;
-	} while (++i < 10);
+	} while (++i < 25);
 
 	return -1;
 }
@@ -36,7 +36,7 @@ int insertar(struct Garaje coche, struct Garaje taller[]) {
 		return 1;
 	else {
 		int i;
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < 25; i++) {
 			if (strcasecmp(taller[i].matricula, "0") == 0) {
 				taller[i] = coche;
 				return 0;
@@ -66,13 +66,14 @@ void imprimir(struct Garaje taller[], char matricula[]) {
 	if (i == -1)
 		printf("1\n\n");
 	else {
-		printf("La matricula es: ");
+		printf("\nIntroduce los datos del coche %d", i + 1);
+		printf("Matricula del vehículo: ");
 		printf("%s\n", taller[i].matricula);
-		printf("La marca del coche es: ");
+		printf("Marca del vehículo: ");
 		printf("%s\n", taller[i].marca);
-		printf("El modelo del coche es: ");
+		printf("Modelo del vehículo: ");
 		printf("%s\n", taller[i].modelo);
-		printf("Los caballos del coche son: ");
+		printf("Potencia del vehículo: ");
 		printf("%d\n\n", taller[i].cv);
 	}
 }
@@ -82,9 +83,9 @@ void ordenar(struct Garaje taller[]) {
 	struct Garaje aux;
 
 	int i;
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < 24; i++) {
 		int j;
-		for (j = i + 1; j < 10; j++) {
+		for (j = i + 1; j < 25; j++) {
 			if (strcasecmp(taller[i].matricula, taller[j].matricula) > 0) {
 				aux = taller[i];
 				taller[i] = taller[j];
@@ -99,11 +100,11 @@ int main(void) {
 
 	setbuf(stdout, NULL);
 
-	struct Garaje taller[10];
+	struct Garaje taller[25];
 	struct Garaje aux;
 
 	int i;
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 25; i++) {
 		strcpy(taller[i].matricula, "_");
 	}
 
@@ -113,40 +114,39 @@ int main(void) {
 	do {
 
 		printf(
-				"1. Dar de ALTA al coche\n2. Dar de BAJA al coche\n3. Imprimir COCHE seleccionado\n4. ordenar nuestro TALLER\n"
-						"5. Salir de la app\n");
+				"1. Introducir un vehículo en el taller (alta)\n2. Sacar un vehículo del taller (baja)\n3. Obtener datos del vahículo seleccionado\n4. Ordenar información de los vehículos\n"
+						"5. Salir\n");
 
-		printf("\nSelecciona la opcion que desee: \n");
 		scanf("%d", &caso);
 		setbuf(stdin, NULL);
 
 		switch (caso) {
 		case 1:
-			printf("Introduce la matricula\n");
+			printf("Introduce matricula\n");
 			gets(aux.matricula);
-			printf("Introduce la marca\n");
+			printf("Introduce marca\n");
 			gets(aux.marca);
-			printf("Introduce el modelo\n");
+			printf("Introduce modelo\n");
 			gets(aux.modelo);
-			printf("Introduce los cv\n");
+			printf("Introduce potencia\n");
 			scanf("%d", &aux.cv);
 			setbuf(stdin, NULL);
 			printf("%d", insertar(aux, taller));
 			break;
 		case 2:
-			printf("Introduce la matricula\n");
+			printf("Introduce matricula\n");
 			scanf("%s", &CasoEscogido);
 			printf("%d", borrar(taller, CasoEscogido));
 			break;
 		case 3:
-			printf("Introduce la matricula\n");
+			printf("Introduce matricula\n");
 			scanf("%s", &CasoEscogido);
 			imprimir(taller, CasoEscogido);
 			break;
 		case 4:
 			ordenar(taller);
 
-			for (i = 0; i < 10; i++) {
+			for (i = 0; i < 25; i++) {
 				printf("%s\n", taller[i].matricula);
 			}
 			break;
